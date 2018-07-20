@@ -8,12 +8,10 @@ import std.algorithm;
 
 immutable string CURRENT_INTERFACE_VERSION = "80000";
 
-void writeResultsToFile(string[] lines)
+void writeResultsToFile(const string tocFileName, const string[] lines)
 {
-	foreach(line; lines)
-	{
-		writeln(line);
-	}
+	auto f = File(tocFileName, "w");
+	lines.each!(line => f.writeln(line));
 }
 
 void replaceInterfaceVersion()
@@ -40,7 +38,7 @@ void replaceInterfaceVersion()
 			}
 		}
 
-		writeResultsToFile(outputLines);
+		writeResultsToFile(tocFile, outputLines);
 	}
 }
 
