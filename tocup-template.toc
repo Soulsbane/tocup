@@ -1,0 +1,13 @@
+## Interface: 70000
+## Title: SimpleCore
+## Notes: A simple framework for creating addons
+## Author: Soulsbane
+## Version: 1.0
+## SavedVariables: SimpleCoreDB
+
+SimpleCore.lua
+Tests.lua
+Modules\CombatStatus.lua
+Modules\Targets.lua
+Modules\Timer.lua
+Modules\Zones.lua
