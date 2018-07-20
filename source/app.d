@@ -6,6 +6,16 @@ import std.string;
 import std.array;
 import std.algorithm;
 
+immutable string CURRENT_INTERFACE_VERSION = "80000";
+
+void writeResultsToFile(string[] lines)
+{
+	foreach(line; lines)
+	{
+		writeln(line);
+	}
+}
+
 void replaceInterfaceVersion()
 {
 	immutable string tocFile = getcwd.baseName ~ ".toc";
@@ -20,7 +30,7 @@ void replaceInterfaceVersion()
 			if(line.canFind("Interface:"))
 			{
 				auto re = regex(r"(\w+)(\d+)","g");
-				immutable string replacedValue = replaceAll(line, re, "80000");
+				immutable string replacedValue = replaceAll(line, re, CURRENT_INTERFACE_VERSION);
 
 				outputLines ~= replacedValue;
 			}
@@ -30,10 +40,7 @@ void replaceInterfaceVersion()
 			}
 		}
 
-		foreach(line; outputLines)
-		{
-			writeln(line);
-		}
+		writeResultsToFile(outputLines);
 	}
 }
 
