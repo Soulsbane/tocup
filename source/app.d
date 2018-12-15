@@ -22,14 +22,13 @@ void replaceInterfaceVersion()
 	{
 		auto lines = tocFile.readText.lineSplitter();
 		string[] outputLines;
+		auto re = regex(r"(\w+)(\d+)","g");
 
 		foreach(line; lines)
 		{
 			if(line.canFind("Interface:"))
 			{
-				auto re = regex(r"(\w+)(\d+)","g");
 				immutable string replacedValue = replaceAll(line, re, CURRENT_INTERFACE_VERSION);
-
 				outputLines ~= replacedValue;
 			}
 			else
