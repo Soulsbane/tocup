@@ -6,7 +6,7 @@ import std.string;
 import std.array;
 import std.algorithm;
 
-immutable string CURRENT_INTERFACE_VERSION = "80000";
+immutable string CURRENT_INTERFACE_VERSION = "80100";
 
 void writeResultsToFile(const string tocFileName, const string[] lines)
 {
