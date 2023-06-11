@@ -37,7 +37,8 @@ func getTocFileName() string {
 	return path.Join(dir, path.Base(dir)+".toc")
 
 }
-func main() {
+
+func replaceInterfaceVersion() {
 	var outputLines []string
 
 	tocFileName := getTocFileName()
@@ -59,4 +60,8 @@ func main() {
 	}
 
 	writeToFile(outputLines)
+}
+
+func main() {
+	replaceInterfaceVersion()
 }
