@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/duke-git/lancet/v2/fileutil"
 	"log"
 	"os"
 	"path"
@@ -42,24 +43,29 @@ func replaceInterfaceVersion() {
 	var outputLines []string
 
 	tocFileName := getTocFileName()
-	lines, err := getFileLines(tocFileName)
 
-	if err != nil {
-		log.Fatal(err)
-	}
+	if fileutil.IsExist(tocFileName) {
+		lines, err := getFileLines(tocFileName)
 
-	for _, line := range lines {
-		if strings.Contains(line, "Interface:") {
-			re := regexp.MustCompile(`(\w+)(\d+)`)
-
-			replacedValue := re.ReplaceAllString(line, CURRENT_INTERFACE_VERSION)
-			outputLines = append(outputLines, replacedValue)
-		} else {
-			outputLines = append(outputLines, line)
+		if err != nil {
+			log.Fatal(err)
 		}
-	}
 
-	writeToFile(outputLines)
+		for _, line := range lines {
+			if strings.Contains(line, "Interface:") {
+				re := regexp.MustCompile(`(\w+)(\d+)`)
+
+				replacedValue := re.ReplaceAllString(line, CURRENT_INTERFACE_VERSION)
+				outputLines = append(outputLines, replacedValue)
+			} else {
+				outputLines = append(outputLines, line)
+			}
+		}
+
+		writeToFile(outputLines)
+	} else {
+		fmt.Println("Failed to find TOC file: ", tocFileName)
+	}
 }
 
 func main() {
