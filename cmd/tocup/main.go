@@ -11,7 +11,7 @@ import (
 	"strings"
 )
 
-const CURRENT_INTERFACE_VERSION = "90002"
+const CurrentInterfaceVersion = "90002"
 
 func writeToFile(fileName string, lines []string) {
 	f, err := os.Create(fileName)
@@ -56,7 +56,7 @@ func replaceInterfaceVersion() {
 			if strings.Contains(line, "Interface:") {
 				re := regexp.MustCompile(`(\w+)(\d+)`)
 
-				replacedValue := re.ReplaceAllString(line, CURRENT_INTERFACE_VERSION)
+				replacedValue := re.ReplaceAllString(line, CurrentInterfaceVersion)
 				outputLines = append(outputLines, replacedValue)
 			} else {
 				outputLines = append(outputLines, line)
