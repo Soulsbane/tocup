@@ -1,5 +1,0 @@
-name "tocup"
-description "Increments a TOC files Interface version."
-copyright "Copyright © 2018"
-authors "Paul Crane"
-dependency "requests" version="~>2.0.0"
