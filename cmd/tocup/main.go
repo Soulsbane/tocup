@@ -12,16 +12,6 @@ import (
 
 const CURRENT_INTERFACE_VERSION = "90002"
 
-func getFileLines(fileName string) ([]string, error) {
-	fileBytes, err := os.ReadFile(fileName)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return strings.Split(string(fileBytes), "\n"), nil
-}
-
 func writeToFile(lines []string) {
 	for _, line := range lines {
 		fmt.Println(line)
@@ -45,7 +35,7 @@ func replaceInterfaceVersion() {
 	tocFileName := getTocFileName()
 
 	if fileutil.IsExist(tocFileName) {
-		lines, err := getFileLines(tocFileName)
+		lines, err := fileutil.ReadFileByLine(tocFileName)
 
 		if err != nil {
 			log.Fatal(err)
