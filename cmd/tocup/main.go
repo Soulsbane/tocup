@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"github.com/duke-git/lancet/v2/fileutil"
 	"log"
@@ -12,10 +13,20 @@ import (
 
 const CURRENT_INTERFACE_VERSION = "90002"
 
-func writeToFile(lines []string) {
-	for _, line := range lines {
-		fmt.Println(line)
+func writeToFile(fileName string, lines []string) {
+	f, err := os.Create(fileName)
+
+	if err != nil {
+		log.Fatal("Failed to update ", fileName, " with the new interface version!")
 	}
+
+	writer := bufio.NewWriter(f)
+
+	for _, line := range lines {
+		writer.WriteString(line + "\n")
+	}
+
+	writer.Flush()
 }
 
 func getTocFileName() string {
@@ -52,7 +63,7 @@ func replaceInterfaceVersion() {
 			}
 		}
 
-		writeToFile(outputLines)
+		writeToFile(tocFileName, outputLines)
 	} else {
 		fmt.Println("Failed to find TOC file: ", tocFileName)
 	}
