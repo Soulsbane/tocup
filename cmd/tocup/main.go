@@ -11,7 +11,7 @@ import (
 	"strings"
 )
 
-const CurrentInterfaceVersion = "90002"
+const CurrentInterfaceVersion = "100100"
 
 func writeToFile(fileName string, lines []string) {
 	f, err := os.Create(fileName)
@@ -27,6 +27,8 @@ func writeToFile(fileName string, lines []string) {
 	}
 
 	writer.Flush()
+
+	fmt.Println("Updated ", fileName, " with the new interface version ", CurrentInterfaceVersion)
 }
 
 func getTocFileName() string {
