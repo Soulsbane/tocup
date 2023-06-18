@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"github.com/alexflint/go-arg"
 	"github.com/duke-git/lancet/v2/fileutil"
 	"log"
 	"os"
@@ -27,8 +28,7 @@ func writeToFile(fileName string, lines []string) {
 	}
 
 	writer.Flush()
-
-	fmt.Println("Updated ", fileName, " with the new interface version ", CurrentInterfaceVersion)
+	fmt.Println("Updated ", fileName, " with the new interface version")
 }
 
 func getTocFileName() string {
@@ -42,7 +42,7 @@ func getTocFileName() string {
 
 }
 
-func replaceInterfaceVersion() {
+func replaceInterfaceVersion(interfaceVersion string) {
 	var outputLines []string
 
 	tocFileName := getTocFileName()
@@ -58,7 +58,7 @@ func replaceInterfaceVersion() {
 			if strings.Contains(line, "Interface:") {
 				re := regexp.MustCompile(`(\w+)(\d+)`)
 
-				replacedValue := re.ReplaceAllString(line, CurrentInterfaceVersion)
+				replacedValue := re.ReplaceAllString(line, interfaceVersion)
 				outputLines = append(outputLines, replacedValue)
 			} else {
 				outputLines = append(outputLines, line)
@@ -72,5 +72,16 @@ func replaceInterfaceVersion() {
 }
 
 func main() {
-	replaceInterfaceVersion()
+	var args programArgs
+	var interfaceVersion string
+
+	arg.MustParse(&args)
+
+	if args.InterfaceVersion == "" {
+		interfaceVersion = CurrentInterfaceVersion
+	} else {
+		interfaceVersion = args.InterfaceVersion
+	}
+
+	replaceInterfaceVersion(interfaceVersion)
 }
