@@ -12,7 +12,7 @@ import (
 	"strings"
 )
 
-const CurrentInterfaceVersion = "100100"
+const CurrentInterfaceVersion = "100200"
 
 func writeToFile(fileName string, lines []string) {
 	f, err := os.Create(fileName)
